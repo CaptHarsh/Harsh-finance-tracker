@@ -1,47 +1,164 @@
 <!DOCTYPE html>
-<html><head>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Harsh Finance V5</title>
+
+<title>Harsh Finance Tracker</title>
+
 <link rel="manifest" href="manifest.json">
 <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-<div id="dashboard" class="page active">
+
+<div id="dashboardPage" class="page active">
+
+<header>
 <h1>💰 Finance Dashboard</h1>
-<div class="grid">
-<div class="card"><h3>RBL</h3><div id="rbl"></div></div>
-<div class="card"><h3>Kotak</h3><div id="kotak"></div></div>
-<div class="card"><h3>Credit Card</h3><div id="cc"></div></div>
-<div class="card"><h3>Net Worth</h3><div id="net"></div></div>
-<div class="card"><h3>Safe To Spend</h3><div id="safe"></div></div>
-<div class="card"><h3>Savings Goal</h3><div id="goal"></div></div>
-<div class="card"><h3>Daily Budget</h3><div id="daily"></div></div>
-<div class="card"><h3>Weekly Budget</h3><div id="weekly"></div></div>
-</div>
+</header>
+
+<div class="dashboard-grid">
+
+<div class="card">
+<h3>💰 RBL</h3>
+<p id="rblBalance">₹0</p>
 </div>
 
-<div id="transactions" class="page">
+<div class="card">
+<h3>🏦 Kotak</h3>
+<p id="kotakBalance">₹0</p>
+</div>
+
+<div class="card">
+<h3>💳 Credit Card</h3>
+<p id="ccBalance">₹0</p>
+</div>
+
+<div class="card">
+<h3>📈 Net Worth</h3>
+<p id="netWorth">₹0</p>
+</div>
+
+<div class="card">
+<h3>🎯 Savings Goal</h3>
+<p id="goalProgress">0%</p>
+</div>
+
+<div class="card">
+<h3>🟢 Safe To Spend</h3>
+<p id="safeSpend">₹0</p>
+</div>
+
+<div class="card">
+<h3>📅 Daily Budget</h3>
+<p id="dailyBudget">₹0</p>
+</div>
+
+<div class="card">
+<h3>📆 Weekly Budget</h3>
+<p id="weeklyBudget">₹0</p>
+</div>
+
+<div class="card">
+<h3>💵 Reimbursement</h3>
+<p id="reimbursementAmount">₹8800</p>
+</div>
+
+</div>
+
+</div>
+
+<div id="transactionsPage" class="page">
+
 <h2>Transactions</h2>
+
 <select id="monthFilter"></select>
-<input id="amount" type="number" placeholder="Amount">
-<select id="type"><option>Expense</option><option>Income</option></select>
-<select id="account"><option>RBL</option><option>Kotak</option><option>Credit Card</option></select>
+
+<div class="quick-buttons">
+
+<button onclick="quickCategory('Food')">🍔 Food</button>
+
+<button onclick="quickCategory('Petrol')">⛽ Petrol</button>
+
+<button onclick="quickCategory('Shopping')">🛍 Shopping</button>
+
+<button onclick="quickCategory('Travel')">🚕 Travel</button>
+
+</div>
+
+<select id="transactionType">
+<option>Expense</option>
+<option>Income</option>
+<option>Transfer</option>
+</select>
+
 <select id="category"></select>
-<button onclick="addTx()">Add</button>
-<div id="txList"></div>
+
+<input id="amount" type="number" placeholder="Amount">
+
+<select id="account">
+<option>RBL</option>
+<option>Kotak</option>
+<option>Credit Card</option>
+</select>
+
+<button onclick="addTransaction()">
+Add Transaction
+</button>
+
+<div id="transactionsList"></div>
+
 </div>
 
-<div id="settings" class="page">
-<h2>Settings</h2>
-<input id="salary" placeholder="Salary" value="60316">
-<input id="savingGoal" placeholder="Savings Goal" value="10000">
-<input id="reimb" placeholder="Reimbursement" value="8800">
+<div id="settingsPage" class="page">
+
+<h2>⚙️ Settings</h2>
+
+<label>Monthly Salary</label>
+<input id="salaryInput" type="number">
+
+<label>Savings Goal</label>
+<input id="goalInput" type="number">
+
+<label>Credit Card Limit</label>
+<input id="ccLimitInput" type="number">
+
+<label>Reimbursement</label>
+<input id="reimbursementInput" type="number">
+
+<label>RBL Balance</label>
+<input id="rblInput" type="number">
+
+<label>Kotak Balance</label>
+<input id="kotakInput" type="number">
+
+<label>Credit Card Outstanding</label>
+<input id="ccInput" type="number">
+
+<button onclick="saveSettings()">
+Save Settings
+</button>
+
 </div>
 
-<nav>
-<button onclick="showPage('dashboard')">🏠</button>
-<button onclick="showPage('transactions')">💸</button>
-<button onclick="showPage('settings')">⚙️</button>
+<nav class="bottom-nav">
+
+<button onclick="showPage('dashboardPage')">
+🏠
+</button>
+
+<button onclick="showPage('transactionsPage')">
+💸
+</button>
+
+<button onclick="showPage('settingsPage')">
+⚙️
+</button>
+
 </nav>
+
 <script src="app.js"></script>
-</body></html>
+
+</body>
+</html>
