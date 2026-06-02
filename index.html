@@ -1,54 +1,24 @@
 <!DOCTYPE html>
 <html><head>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Harsh Finance</title>
+<title>Harsh Finance Fix</title>
 <link rel="stylesheet" href="styles.css">
 </head><body>
 <h1>💰 Harsh Finance</h1>
 
 <div class="grid">
-<div class="card"><div>💰 RBL</div><b id="rbl"></b></div>
-<div class="card"><div>🏦 Kotak</div><b id="kotak"></b></div>
-<div class="card"><div>💳 Credit Card</div><b id="cc"></b></div>
-<div class="card"><div>💵 Reimbursement</div><b id="reimb"></b></div>
+<div class="mini">💰 RBL<br><b>₹33,659</b></div>
+<div class="mini">🏦 Kotak<br><b>₹25,000</b></div>
+<div class="mini">💳 Credit Card<br><b>₹15,374</b></div>
+<div class="mini">💵 Reimbursement<br><b>₹8,800</b></div>
+
+<div class="mini">📈 Net Worth<br><b>₹43,285</b></div>
+<div class="mini">💳 Usage<br><b>61.5%</b></div>
+<div class="mini">🟢 Safe Today<br><b>₹33,585</b></div>
+<div class="mini">📆 Weekly Budget<br><b>₹8,000</b></div>
 </div>
 
-<div class="grid">
-<div class="card"><div>📈 Net Worth</div><b id="networth"></b></div>
-<div class="card"><div>💳 Usage</div><b id="usage"></b></div>
-<div class="card"><div>📅 Daily Budget</div><b id="daily"></b></div>
-<div class="card"><div>📆 Weekly Budget</div><b id="weekly"></b></div>
-</div>
+<div class="goalwrap"><div id="goalBar"></div></div>
+<p>🎯 Goal: ₹43,285 / ₹53,285</p>
 
-<div class="card">
-<div>🎯 Savings Goal</div>
-<div class="bar"><div id="goalbar"></div></div>
-<div id="goaltext"></div>
-</div>
-
-<div class="grid">
-<div class="card"><div>🍔 Food</div><b id="foodSpend">₹0</b></div>
-<div class="card"><div>⛽ Petrol</div><b id="petrolSpend">₹0</b></div>
-<div class="card"><div>🛍 Shopping</div><b id="shoppingSpend">₹0</b></div>
-<div class="card"><div>📦 Misc</div><b id="miscSpend">₹0</b></div>
-</div>
-
-<div class="quick">
-<button onclick="setCat('Food')">🍔</button>
-<button onclick="setCat('Petrol')">⛽</button>
-<button onclick="setCat('Shopping')">🛍</button>
-<button onclick="setCat('Misc')">📦</button>
-</div>
-
-<select id="type"><option>Expense</option><option>Income</option></select>
-<select id="category"></select>
-<input id="amount" type="number" placeholder="Amount">
-<select id="account"><option>RBL</option><option>Kotak</option><option>Credit Card</option></select>
-<button onclick="addTx()">➕ Add</button>
-
-<select id="monthFilter"><option value="">All Months</option></select>
-
-<div id="txlist"></div>
-
-<script src="app.js"></script>
 </body></html>
