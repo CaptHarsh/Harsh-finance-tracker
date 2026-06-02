@@ -1,11 +1,5 @@
-V3 Features
-- Expense / Income / Transfer
-- Cashback & Reimbursement as Income only
-- Delete with balance rollback
-- Daily budget tracker
-- Weekly budget tracker
-- Safe to Spend card
-- Net Worth card
-- RBL/Kotak/Credit Card tracking
-- Transaction history
-- Dark UI
+Changes:
+- Fixed Safe Today display
+- Removed Forecast card logic
+- Replaced Goal % with Savings Goal progress
+- Goal now shows Current Saved / Goal
