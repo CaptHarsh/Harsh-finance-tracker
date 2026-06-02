@@ -1,6 +1,7 @@
 <!DOCTYPE html><html><head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Harsh Finance</title>
+<title>Harsh Finance Tracker</title>
 <link rel="stylesheet" href="styles.css">
 </head><body>
 <h1>💰 Harsh Finance Tracker</h1>
@@ -10,15 +11,17 @@
 <div class="card"><h3>Kotak</h3><p id="kotakBalance"></p></div>
 <div class="card"><h3>Credit Card</h3><p id="ccBalance"></p></div>
 <div class="card"><h3>Net Worth</h3><p id="netWorth"></p></div>
+<div class="card"><h3>💵 Reimbursement</h3><p id="reimbursementAmount"></p></div>
+<div class="card"><h3>🟢 Safe To Spend</h3><p id="safeSpend"></p></div>
 </div>
 
 <select id="transactionType">
 <option>Expense</option>
 <option>Income</option>
+<option>Transfer</option>
 </select>
 
 <select id="category"></select>
-
 <input id="amount" type="number" placeholder="Amount">
 
 <select id="account">
