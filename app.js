@@ -1,1 +1,44 @@
-const STORAGE_KEY='harsh_finance_v1';let state=JSON.parse(localStorage.getItem(STORAGE_KEY))||{rbl:33959,kotak:25000,creditCard:15374.41,goal:10000,reimbursement:8800,transactions:[]};function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}function render(){rblBalance.innerText='₹'+state.rbl.toFixed(2);kotakBalance.innerText='₹'+state.kotak.toFixed(2);ccBalance.innerText='₹'+state.creditCard.toFixed(2);safeSpend.innerText='₹'+Math.max(0,state.rbl-20000).toFixed(2);transactionTable.innerHTML='';state.transactions.forEach((t,i)=>{const r=document.createElement('tr');r.innerHTML=`<td>${t.date}</td><td>${t.category}</td><td>₹${t.amount}</td><td>${t.payment}</td><td><button class='deleteBtn' onclick='deleteTransaction(${i})'>Delete</button></td>`;transactionTable.appendChild(r);});}function addExpense(){const amount=parseFloat(document.getElementById('amount').value);if(!amount)return;const category=categoryEl.value;const payment=paymentEl.value;state.transactions.push({date:new Date().toLocaleDateString(),amount,category,payment});if(payment==='RBL')state.rbl-=amount;else state.creditCard+=amount;save();render();amountEl.value='';}function deleteTransaction(i){const tx=state.transactions[i];if(tx.payment==='RBL')state.rbl+=tx.amount;else state.creditCard-=tx.amount;state.transactions.splice(i,1);save();render();}const amountEl=amount,categoryEl=category,paymentEl=payment;addBtn.addEventListener('click',addExpense);copySummary.addEventListener('click',()=>{navigator.clipboard.writeText(`RBL: ₹${state.rbl}\nKotak: ₹${state.kotak}\nCredit Card: ₹${state.creditCard}`);alert('Copied');});render();
+const KEY='hf_v2';
+let s=JSON.parse(localStorage.getItem(KEY)||'{"rbl":33959,"kotak":25000,"cc":15374.41,"tx":[]}');
+
+function save(){localStorage.setItem(KEY,JSON.stringify(s));}
+function render(){
+document.getElementById('rbl').innerText='₹'+s.rbl.toFixed(2);
+document.getElementById('kotak').innerText='₹'+s.kotak.toFixed(2);
+document.getElementById('cc').innerText='₹'+s.cc.toFixed(2);
+document.getElementById('networth').innerText='₹'+(s.rbl+s.kotak-s.cc).toFixed(2);
+
+let t='';
+s.tx.forEach((x,i)=>{
+t+=`<tr><td>${x.date}</td><td>${x.type}</td><td>${x.category}</td><td>₹${x.amount}</td><td>${x.account}</td><td><button class="del" onclick="delTx(${i})">Delete</button></td></tr>`;
+});
+document.getElementById('txTable').innerHTML=t;
+}
+function addTx(){
+const type=document.getElementById('type').value;
+const amount=parseFloat(document.getElementById('amount').value);
+const category=document.getElementById('category').value;
+const account=document.getElementById('account').value;
+if(!amount)return;
+
+if(type==='Expense'){
+if(account==='RBL')s.rbl-=amount;
+else if(account==='Kotak')s.kotak-=amount;
+else s.cc+=amount;
+}
+if(type==='Income'){
+if(account==='RBL')s.rbl+=amount;
+else if(account==='Kotak')s.kotak+=amount;
+else s.cc-=amount;
+}
+
+s.tx.unshift({date:new Date().toLocaleDateString(),type,category,amount,account});
+save();render();
+document.getElementById('amount').value='';
+}
+function delTx(i){s.tx.splice(i,1);save();render();}
+function copySummary(){
+navigator.clipboard.writeText(JSON.stringify(s,null,2));
+alert('Summary copied');
+}
+render();
