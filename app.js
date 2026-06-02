@@ -1,25 +1,59 @@
-const K='hfv5';
-const EXP=['Food','Petrol','Shopping','Travel','Gift','Bills'];
-const INC=['Cashback','Reimbursement','Salary','Refund'];
-let s=JSON.parse(localStorage.getItem(K)||'{"rbl":33959,"kotak":25000,"cc":15374.41,"goal":10000,"tx":[]}');
-function save(){localStorage.setItem(K,JSON.stringify(s));}
-function fill(){category.innerHTML=(type.value==='Income'?INC:EXP).map(x=>'<option>'+x+'</option>').join('');}
-fill(); type.onchange=fill;
-function showPage(id){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');}
-function addTx(){let a=+amount.value;if(!a)return;let d=new Date();let t={amt:a,type:type.value,cat:category.value,acc:account.value,date:d.toISOString(),month:d.toISOString().slice(0,7)};
-if(t.type==='Expense'){if(t.acc==='RBL')s.rbl-=a;else if(t.acc==='Kotak')s.kotak-=a;else s.cc+=a;}
-else{if(t.acc==='RBL')s.rbl+=a;else if(t.acc==='Kotak')s.kotak+=a;else s.cc-=a;}
-s.tx.unshift(t);save();render();}
-function delTx(i){s.tx.splice(i,1);save();render();}
-function render(){
-rbl.innerText='₹'+s.rbl.toFixed(0);kotak.innerText='₹'+s.kotak.toFixed(0);cc.innerText='₹'+s.cc.toFixed(0);
-net.innerText='₹'+(s.rbl+s.kotak-s.cc).toFixed(0);
-safe.innerText='₹'+Math.max(0,s.rbl-20000).toFixed(0);
-goal.innerText='₹'+s.goal;
-daily.innerText='₹500';weekly.innerText='₹3500';
-let months=[...new Set(s.tx.map(x=>x.month))];
-monthFilter.innerHTML='<option value="">Current Month</option>'+months.map(m=>'<option>'+m+'</option>').join('');
-let m=monthFilter.value;
-txList.innerHTML=s.tx.filter(x=>!m||x.month===m).map((x,i)=>'<div class=tx>'+x.cat+' ₹'+x.amt+'<br>'+new Date(x.date).toLocaleString()+'<br><button onclick="delTx('+i+')">Delete</button></div>').join('');
+const KEY='harsh_v4_real';
+const EXP=['Food','Petrol','Shopping','Travel','Gift','Bills','Entertainment','Misc'];
+const INC=['Cashback','Reimbursement','Salary','Refund','Interest'];
+let s=JSON.parse(localStorage.getItem(KEY)||'{"rbl":33959,"kotak":25000,"cc":15374.41,"reimb":8800,"tx":[]}');
+
+function save(){localStorage.setItem(KEY,JSON.stringify(s));}
+function fill(){category.innerHTML=(type.value==='Income'?INC:EXP).map(x=>`<option>${x}</option>`).join('');}
+type.onchange=fill;fill();
+
+function quick(c){type.value='Expense';fill();category.value=c;amount.focus();}
+
+function addTx(){
+ let a=+amount.value;if(!a)return;
+ let now=new Date();
+ let tx={date:now.toISOString(),month:now.toISOString().slice(0,7),type:type.value,cat:category.value,acc:account.value,amt:a};
+
+ if(tx.type==='Expense'){
+   if(tx.acc==='RBL')s.rbl-=a;
+   else if(tx.acc==='Kotak')s.kotak-=a;
+   else s.cc+=a;
+ } else {
+   if(tx.acc==='RBL')s.rbl+=a;
+   else if(tx.acc==='Kotak')s.kotak+=a;
+   else s.cc-=a;
+   if(tx.cat==='Reimbursement') s.reimb=Math.max(0,s.reimb-a);
+ }
+ s.tx.unshift(tx);
+ save(); render(); amount.value='';
 }
-monthFilter.onchange=render;render();
+
+function del(i){
+ let t=s.tx[i],a=t.amt;
+ if(t.type==='Expense'){
+   if(t.acc==='RBL')s.rbl+=a; else if(t.acc==='Kotak')s.kotak+=a; else s.cc-=a;
+ } else {
+   if(t.acc==='RBL')s.rbl-=a; else if(t.acc==='Kotak')s.kotak-=a; else s.cc+=a;
+ }
+ s.tx.splice(i,1); save(); render();
+}
+
+function render(){
+ rbl.innerHTML='<div class=value>₹'+s.rbl.toFixed(0)+'</div>';
+ kotak.innerHTML='<div class=value>₹'+s.kotak.toFixed(0)+'</div>';
+ cc.innerHTML='<div class=value>₹'+s.cc.toFixed(0)+'</div>';
+ net.innerHTML='<div class=value>₹'+(s.rbl+s.kotak-s.cc).toFixed(0)+'</div>';
+ safe.innerHTML='<div class=value>₹'+Math.max(0,s.rbl-20000).toFixed(0)+'</div>';
+ reimb.innerHTML='<div class=value>₹'+s.reimb.toFixed(0)+'</div>';
+
+ let months=[...new Set(s.tx.map(x=>x.month))];
+ monthFilter.innerHTML='<option value="">Current/All</option>'+months.map(m=>`<option>${m}</option>`).join('');
+
+ let mf=monthFilter.value;
+ transactions.innerHTML=s.tx.filter(x=>!mf||x.month===mf).map((x,i)=>{
+   let d=new Date(x.date);
+   return `<div class="tx">${x.cat} • ₹${x.amt}<br>${d.toLocaleDateString()} ${d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}<br>${x.acc}<br><button onclick="del(${i})">Delete</button></div>`;
+ }).join('');
+}
+monthFilter.onchange=render;
+render();
