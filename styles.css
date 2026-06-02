@@ -1,7 +1,6 @@
-body{font-family:-apple-system,Arial;background:#121212;color:#fff;padding:16px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.card{background:#1e1e1e;padding:14px;border-radius:14px;margin-bottom:12px}
-input,select,button{width:100%;padding:10px;margin-top:8px;border-radius:8px}
-button{background:#2ecc71;color:#fff;border:none}
-table{width:100%}th,td{padding:6px}
-.del{background:#e74c3c}
+body{font-family:-apple-system,Arial;background:#121212;color:white;padding:16px}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.card{background:#1e1e1e;border-radius:14px;padding:12px}
+input,select,button{width:100%;padding:10px;margin:6px 0;border-radius:8px}
+button{background:#2ecc71;color:white;border:none}
+table{width:100%;font-size:12px} th,td{padding:6px}

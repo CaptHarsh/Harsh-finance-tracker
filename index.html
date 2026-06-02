@@ -1,57 +1,44 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Harsh Finance Tracker V2</title>
+<!DOCTYPE html><html><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Harsh Finance Tracker V3</title>
 <link rel="manifest" href="manifest.json">
 <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-<h1>💰 Harsh Finance Tracker V2</h1>
+</head><body>
+<h1>💰 Harsh Finance Tracker V3</h1>
 
-<div class="grid">
-<div class="card"><h3>RBL</h3><div id="rbl">33959</div></div>
-<div class="card"><h3>Kotak</h3><div id="kotak">25000</div></div>
-<div class="card"><h3>Credit Card</h3><div id="cc">15374.41</div></div>
-<div class="card"><h3>Net Worth</h3><div id="networth"></div></div>
+<div class="cards">
+<div class="card"><h3>RBL</h3><div id="rbl"></div></div>
+<div class="card"><h3>Kotak</h3><div id="kotak"></div></div>
+<div class="card"><h3>Credit Card</h3><div id="cc"></div></div>
+<div class="card"><h3>Net Worth</h3><div id="net"></div></div>
+<div class="card"><h3>Daily Budget</h3><div id="daily"></div></div>
+<div class="card"><h3>Weekly Budget</h3><div id="weekly"></div></div>
 </div>
 
-<div class="card">
 <h2>Add Transaction</h2>
+<input id="date" type="date">
+<input id="time" type="time">
 <select id="type">
 <option>Expense</option>
 <option>Income</option>
 <option>Transfer</option>
 </select>
 <input id="amount" type="number" placeholder="Amount">
-<select id="category">
-<option>Food</option><option>Petrol</option><option>Shopping</option>
-<option>Travel</option><option>Gift</option><option>Bills</option>
-<option>Entertainment</option><option>Misc</option>
-<option>Cashback</option><option>Reimbursement</option>
-<option>Salary</option><option>Refund</option>
-</select>
+<input id="notes" placeholder="Notes">
+<select id="category"></select>
 <select id="account">
-<option>RBL</option>
-<option>Kotak</option>
-<option>Credit Card</option>
+<option>RBL</option><option>Kotak</option><option>Credit Card</option>
 </select>
-<button onclick="addTx()">Add</button>
-</div>
+<button onclick="addTx()">Add Transaction</button>
 
-<div class="card">
-<h2>Transactions</h2>
+<h2>Filter</h2>
+<input id="filterDate" type="date" oninput="render()">
+
 <table>
-<thead><tr><th>Date</th><th>Type</th><th>Category</th><th>Amount</th><th>Account</th><th>Action</th></tr></thead>
+<thead><tr><th>Date</th><th>Time</th><th>Type</th><th>Category</th><th>Amount</th><th>Account</th><th>Notes</th><th>Action</th></tr></thead>
 <tbody id="txTable"></tbody>
 </table>
-</div>
 
-<div class="card">
 <button onclick="copySummary()">Copy Summary</button>
-</div>
-
 <script src="app.js"></script>
-</body>
-</html>
+</body></html>
