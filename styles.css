@@ -1,8 +1,5 @@
-body{font-family:-apple-system;background:#111827;color:#fff;margin:0;padding:15px;padding-bottom:70px}
+body{font-family:-apple-system;padding:16px;background:#111827;color:#fff}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.card{background:#1f2937;padding:12px;border-radius:16px}
-.page{display:none}.active{display:block}
-nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:#000}
-nav button{flex:1;padding:15px}
-input,select,button{width:100%;padding:12px;margin:5px 0;border-radius:10px;border:none}
-.tx{background:#1f2937;padding:10px;border-radius:12px;margin:8px 0}
+.card{background:#1f2937;padding:12px;border-radius:12px}
+input,select,button{width:100%;padding:12px;margin-top:10px;border-radius:10px}
+.tx{background:#1f2937;padding:10px;border-radius:10px;margin-top:10px}
