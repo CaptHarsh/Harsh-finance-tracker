@@ -1,7 +1,6 @@
-body{font-family:-apple-system;background:#0f1115;color:#fff;padding:16px}
-.hero{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.card{background:#1b1f27;border-radius:18px;padding:14px;margin:10px 0}
-.quick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-button,input,select{width:100%;padding:12px;border-radius:12px;border:none;margin:4px 0}
-button{background:#3b82f6;color:#fff}
-span{font-size:22px;font-weight:bold}
+body{font-family:-apple-system,Arial;background:#121212;color:white;padding:16px}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.card{background:#1e1e1e;border-radius:14px;padding:12px}
+input,select,button{width:100%;padding:10px;margin:6px 0;border-radius:8px}
+button{background:#2ecc71;color:white;border:none}
+table{width:100%;font-size:12px} th,td{padding:6px}
