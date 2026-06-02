@@ -1,8 +1,8 @@
-body{font-family:-apple-system;background:#111827;color:white;padding:15px}
+body{font-family:-apple-system;background:#111827;color:#fff;margin:0;padding:15px;padding-bottom:70px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.card{background:#1f2937;border-radius:16px;padding:12px;margin:8px 0}
-.quick{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-button,input,select{width:100%;padding:12px;border-radius:12px;border:none;margin:4px 0}
-button{background:#2563eb;color:white}
-.value{font-size:22px;font-weight:bold}
+.card{background:#1f2937;padding:12px;border-radius:16px}
+.page{display:none}.active{display:block}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:#000}
+nav button{flex:1;padding:15px}
+input,select,button{width:100%;padding:12px;margin:5px 0;border-radius:10px;border:none}
 .tx{background:#1f2937;padding:10px;border-radius:12px;margin:8px 0}
