@@ -1,44 +1,43 @@
 <!DOCTYPE html><html><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Harsh Finance Tracker V3</title>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>Harsh Finance V4</title>
 <link rel="manifest" href="manifest.json">
 <link rel="stylesheet" href="styles.css">
 </head><body>
-<h1>💰 Harsh Finance Tracker V3</h1>
+<h1>💰 Harsh Finance</h1>
 
-<div class="cards">
-<div class="card"><h3>RBL</h3><div id="rbl"></div></div>
-<div class="card"><h3>Kotak</h3><div id="kotak"></div></div>
-<div class="card"><h3>Credit Card</h3><div id="cc"></div></div>
-<div class="card"><h3>Net Worth</h3><div id="net"></div></div>
-<div class="card"><h3>Daily Budget</h3><div id="daily"></div></div>
-<div class="card"><h3>Weekly Budget</h3><div id="weekly"></div></div>
+<div class="hero">
+<div class="card"><h3>Net Worth</h3><span id="net"></span></div>
+<div class="card"><h3>Safe Today</h3><span id="safe"></span></div>
+<div class="card"><h3>Daily Left</h3><span id="daily"></span></div>
+<div class="card"><h3>Weekly Left</h3><span id="weekly"></span></div>
 </div>
 
-<h2>Add Transaction</h2>
-<input id="date" type="date">
-<input id="time" type="time">
+<div class="card">
+<select id="monthFilter"></select>
+</div>
+
+<div class="quick">
+<button onclick="quick('Food')">🍔 Food</button>
+<button onclick="quick('Petrol')">⛽ Petrol</button>
+<button onclick="quick('Shopping')">🛍 Shopping</button>
+<button onclick="quick('Travel')">🚕 Travel</button>
+</div>
+
+<div class="card">
 <select id="type">
-<option>Expense</option>
-<option>Income</option>
-<option>Transfer</option>
+<option>Expense</option><option>Income</option><option>Transfer</option>
 </select>
-<input id="amount" type="number" placeholder="Amount">
-<input id="notes" placeholder="Notes">
 <select id="category"></select>
-<select id="account">
-<option>RBL</option><option>Kotak</option><option>Credit Card</option>
-</select>
-<button onclick="addTx()">Add Transaction</button>
+<input id="amount" type="number" placeholder="Amount">
+<select id="account"><option>RBL</option><option>Kotak</option><option>Credit Card</option></select>
+<button onclick="addTx()">Save</button>
+</div>
 
-<h2>Filter</h2>
-<input id="filterDate" type="date" oninput="render()">
+<div class="card">
+<h3>Recent Transactions</h3>
+<div id="list"></div>
+</div>
 
-<table>
-<thead><tr><th>Date</th><th>Time</th><th>Type</th><th>Category</th><th>Amount</th><th>Account</th><th>Notes</th><th>Action</th></tr></thead>
-<tbody id="txTable"></tbody>
-</table>
-
-<button onclick="copySummary()">Copy Summary</button>
 <script src="app.js"></script>
 </body></html>
