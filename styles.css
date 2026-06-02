@@ -1,8 +1,7 @@
-body{font-family:-apple-system;background:#111827;color:white;padding:15px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.card{background:#1f2937;border-radius:16px;padding:12px;margin:8px 0}
-.quick{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+body{font-family:-apple-system;background:#0f1115;color:#fff;padding:16px}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{background:#1b1f27;border-radius:18px;padding:14px;margin:10px 0}
+.quick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 button,input,select{width:100%;padding:12px;border-radius:12px;border:none;margin:4px 0}
-button{background:#2563eb;color:white}
-.value{font-size:22px;font-weight:bold}
-.tx{background:#1f2937;padding:10px;border-radius:12px;margin:8px 0}
+button{background:#3b82f6;color:#fff}
+span{font-size:22px;font-weight:bold}
