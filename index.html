@@ -1,47 +1,43 @@
-<!DOCTYPE html>
-<html><head>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Harsh Finance V5</title>
+<!DOCTYPE html><html><head>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>Harsh Finance V4</title>
 <link rel="manifest" href="manifest.json">
 <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-<div id="dashboard" class="page active">
-<h1>💰 Finance Dashboard</h1>
-<div class="grid">
-<div class="card"><h3>RBL</h3><div id="rbl"></div></div>
-<div class="card"><h3>Kotak</h3><div id="kotak"></div></div>
-<div class="card"><h3>Credit Card</h3><div id="cc"></div></div>
-<div class="card"><h3>Net Worth</h3><div id="net"></div></div>
-<div class="card"><h3>Safe To Spend</h3><div id="safe"></div></div>
-<div class="card"><h3>Savings Goal</h3><div id="goal"></div></div>
-<div class="card"><h3>Daily Budget</h3><div id="daily"></div></div>
-<div class="card"><h3>Weekly Budget</h3><div id="weekly"></div></div>
-</div>
+</head><body>
+<h1>💰 Harsh Finance</h1>
+
+<div class="hero">
+<div class="card"><h3>Net Worth</h3><span id="net"></span></div>
+<div class="card"><h3>Safe Today</h3><span id="safe"></span></div>
+<div class="card"><h3>Daily Left</h3><span id="daily"></span></div>
+<div class="card"><h3>Weekly Left</h3><span id="weekly"></span></div>
 </div>
 
-<div id="transactions" class="page">
-<h2>Transactions</h2>
+<div class="card">
 <select id="monthFilter"></select>
-<input id="amount" type="number" placeholder="Amount">
-<select id="type"><option>Expense</option><option>Income</option></select>
-<select id="account"><option>RBL</option><option>Kotak</option><option>Credit Card</option></select>
+</div>
+
+<div class="quick">
+<button onclick="quick('Food')">🍔 Food</button>
+<button onclick="quick('Petrol')">⛽ Petrol</button>
+<button onclick="quick('Shopping')">🛍 Shopping</button>
+<button onclick="quick('Travel')">🚕 Travel</button>
+</div>
+
+<div class="card">
+<select id="type">
+<option>Expense</option><option>Income</option><option>Transfer</option>
+</select>
 <select id="category"></select>
-<button onclick="addTx()">Add</button>
-<div id="txList"></div>
+<input id="amount" type="number" placeholder="Amount">
+<select id="account"><option>RBL</option><option>Kotak</option><option>Credit Card</option></select>
+<button onclick="addTx()">Save</button>
 </div>
 
-<div id="settings" class="page">
-<h2>Settings</h2>
-<input id="salary" placeholder="Salary" value="60316">
-<input id="savingGoal" placeholder="Savings Goal" value="10000">
-<input id="reimb" placeholder="Reimbursement" value="8800">
+<div class="card">
+<h3>Recent Transactions</h3>
+<div id="list"></div>
 </div>
 
-<nav>
-<button onclick="showPage('dashboard')">🏠</button>
-<button onclick="showPage('transactions')">💸</button>
-<button onclick="showPage('settings')">⚙️</button>
-</nav>
 <script src="app.js"></script>
 </body></html>
