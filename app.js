@@ -1,97 +1,62 @@
-const KEY='harsh_updated';
-const EXP=['Food','Petrol','Shopping','Travel'];
+const KEY='finance_v3plus';
+const EXP=['Food','Petrol','Shopping','Travel','Bills'];
 const INC=['Salary','Cashback','Reimbursement','Refund','Interest'];
-const TRANSFER=['RBL → Kotak','Kotak → RBL'];
+const TRANS=['RBL → Kotak','Kotak → RBL'];
+let editId=null;
 
-let state=JSON.parse(localStorage.getItem(KEY)||'{"rbl":33959,"kotak":25000,"creditCard":15374.41,"reimbursement":8800,"transactions":[]}');
+let s=JSON.parse(localStorage.getItem(KEY)||'{"rbl":33959,"kotak":25000,"cc":15374.41,"goal":10000,"ccLimit":25000,"reimb":8800,"tx":[]}');
 
-function save(){localStorage.setItem(KEY,JSON.stringify(state));}
+function save(){localStorage.setItem(KEY,JSON.stringify(s));}
+function cats(){let a=EXP;if(type.value==='Income')a=INC;if(type.value==='Transfer')a=TRANS;category.innerHTML=a.map(x=>`<option>${x}</option>`).join('');}
+type.onchange=cats;cats();
 
-function refreshCategories(){
-const t=document.getElementById('transactionType').value;
-let list=[];
-if(t==='Expense') list=EXP;
-if(t==='Income') list=INC;
-if(t==='Transfer') list=TRANSFER;
-document.getElementById('category').innerHTML=list.map(x=>`<option>${x}</option>`).join('');
-}
-refreshCategories();
-document.getElementById('transactionType').addEventListener('change',refreshCategories);
+function populateMonths(){const m=[...new Set(s.tx.map(x=>x.month))];monthFilter.innerHTML='<option value="">All Months</option>'+m.map(x=>`<option>${x}</option>`).join('');}
 
-function addTransaction(){
-const amount=parseFloat(document.getElementById('amount').value);
-if(!amount||amount<=0){alert('Enter amount');return;}
+function addTx(){
+let a=parseFloat(amount.value); if(!a)return;
+const now=new Date();
+let tx={id:editId||Date.now(),type:type.value,cat:category.value,acc:account.value,amt:a,date:now.toLocaleString(),month:now.toISOString().slice(0,7)};
+if(editId){deleteCore(editId,false); editId=null;}
 
-const tx={id:Date.now(),type:transactionType.value,category:category.value,account:account.value,amount,date:new Date().toLocaleString()};
+if(tx.type==='Expense'){if(tx.acc==='RBL')s.rbl-=a; else if(tx.acc==='Kotak')s.kotak-=a; else s.cc+=a;}
+else if(tx.type==='Income'){if(tx.acc==='RBL')s.rbl+=a; else if(tx.acc==='Kotak')s.kotak+=a; else s.cc-=a;}
+else {if(tx.cat==='RBL → Kotak'){s.rbl-=a;s.kotak+=a;} else {s.kotak-=a;s.rbl+=a;}}
 
-if(tx.type==='Expense'){
- if(tx.account==='RBL') state.rbl-=amount;
- else if(tx.account==='Kotak') state.kotak-=amount;
- else state.creditCard+=amount;
-}
-else if(tx.type==='Income'){
- if(tx.account==='RBL') state.rbl+=amount;
- else if(tx.account==='Kotak') state.kotak+=amount;
- else state.creditCard-=amount;
-
- if(tx.category==='Reimbursement'){
-   state.reimbursement=Math.max(0,state.reimbursement-amount);
- }
-}
-else if(tx.type==='Transfer'){
- if(tx.category==='RBL → Kotak'){state.rbl-=amount;state.kotak+=amount;}
- if(tx.category==='Kotak → RBL'){state.kotak-=amount;state.rbl+=amount;}
+s.tx.unshift(tx); save(); render(); amount.value='';
 }
 
-state.transactions.unshift(tx);
-save();
-render();
-amount.value='';
+function deleteCore(id,rer=true){
+const t=s.tx.find(x=>x.id===id); if(!t)return;
+if(t.type==='Expense'){if(t.acc==='RBL')s.rbl+=t.amt; else if(t.acc==='Kotak')s.kotak+=t.amt; else s.cc-=t.amt;}
+else if(t.type==='Income'){if(t.acc==='RBL')s.rbl-=t.amt; else if(t.acc==='Kotak')s.kotak-=t.amt; else s.cc+=t.amt;}
+else {if(t.cat==='RBL → Kotak'){s.rbl+=t.amt;s.kotak-=t.amt;} else {s.kotak+=t.amt;s.rbl-=t.amt;}}
+s.tx=s.tx.filter(x=>x.id!==id); save(); if(rer)render();
 }
-
-function deleteTx(id){
-const tx=state.transactions.find(x=>x.id===id);
-if(!tx) return;
-
-if(tx.type==='Expense'){
- if(tx.account==='RBL') state.rbl+=tx.amount;
- else if(tx.account==='Kotak') state.kotak+=tx.amount;
- else state.creditCard-=tx.amount;
-}
-else if(tx.type==='Income'){
- if(tx.account==='RBL') state.rbl-=tx.amount;
- else if(tx.account==='Kotak') state.kotak-=tx.amount;
- else state.creditCard+=tx.amount;
-}
-else if(tx.type==='Transfer'){
- if(tx.category==='RBL → Kotak'){state.rbl+=tx.amount;state.kotak-=tx.amount;}
- if(tx.category==='Kotak → RBL'){state.kotak+=tx.amount;state.rbl-=tx.amount;}
-}
-
-state.transactions=state.transactions.filter(x=>x.id!==id);
-save();
-render();
-}
+function delTx(id){deleteCore(id,true);}
+function editTx(id){const t=s.tx.find(x=>x.id===id); if(!t)return; type.value=t.type; cats(); category.value=t.cat; account.value=t.acc; amount.value=t.amt; editId=id;}
 
 function render(){
-document.getElementById('rblBalance').innerText='₹'+state.rbl.toFixed(2);
-document.getElementById('kotakBalance').innerText='₹'+state.kotak.toFixed(2);
-document.getElementById('ccBalance').innerText='₹'+state.creditCard.toFixed(2);
+populateMonths();
+const nw=s.rbl+s.kotak-s.cc;
+const safe=Math.max(0,(s.rbl+s.kotak)-s.cc-s.goal);
+const daysLeft=Math.max(1,new Date(new Date().getFullYear(),new Date().getMonth()+1,0).getDate()-new Date().getDate()+1);
+const daily=Math.round(safe/daysLeft);
+const weekly=daily*7;
+const util=((s.cc/s.ccLimit)*100).toFixed(1)+'%';
 
-const nw=state.rbl+state.kotak-state.creditCard;
-document.getElementById('netWorth').innerText='₹'+nw.toFixed(2);
+rbl.innerText='₹'+s.rbl.toFixed(0);
+kotak.innerText='₹'+s.kotak.toFixed(0);
+cc.innerText='₹'+s.cc.toFixed(0);
+reimb.innerText='₹'+s.reimb.toFixed(0);
+netWorth.innerText='₹'+nw.toFixed(0);
+safeSpend.innerText='₹'+safe.toFixed(0);
+dailyBudget.innerText='₹'+daily;
+weeklyBudget.innerText='₹'+weekly;
+ccUtil.innerText=util;
+forecast.innerText='₹'+Math.round(nw + s.reimb);
 
-document.getElementById('reimbursementAmount').innerText='₹'+state.reimbursement;
-
-const safe=Math.max(0,(state.rbl+state.kotak)-state.creditCard-10000);
-document.getElementById('safeSpend').innerText='₹'+safe.toFixed(0);
-
-transactionsList.innerHTML=state.transactions.map(tx=>`
-<div class="tx">
-<b>${tx.category}</b> ₹${tx.amount}<br>
-${tx.account}<br>
-${tx.date}<br>
-<button onclick="deleteTx(${tx.id})">Delete</button>
-</div>`).join('');
+let txs=s.tx; if(monthFilter.value) txs=txs.filter(x=>x.month===monthFilter.value);
+list.innerHTML=txs.map(t=>`<div class="tx"><b>${t.cat}</b> ₹${t.amt}<br>${t.date}<br><button onclick="editTx(${t.id})">Edit</button> <button onclick="delTx(${t.id})">Delete</button></div>`).join('');
 }
+monthFilter.onchange=render;
 render();
