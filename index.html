@@ -3,30 +3,38 @@
 <title>Harsh Finance</title>
 <link rel="stylesheet" href="styles.css">
 </head><body>
-<h1>💰 Harsh Finance</h1>
+<h2>💰 Harsh Finance</h2>
 
-<div class="card"><h3>Net Worth</h3><h2 id="netWorth"></h2></div>
-<div class="card"><h3>Projected Month End Savings</h3><h2 id="forecast"></h2></div>
-<div class="card"><h3>Safe To Spend</h3><h2 id="safeSpend"></h2></div>
-<div class="card"><h3>Daily Budget Remaining</h3><h2 id="dailyBudget"></h2></div>
-<div class="card"><h3>Weekly Budget Remaining</h3><h2 id="weeklyBudget"></h2></div>
-<div class="card"><h3>Credit Card Utilization</h3><h2 id="ccUtil"></h2></div>
+<div class="mini-grid">
+<div class="mini">💰 <span id="rbl"></span></div>
+<div class="mini">🏦 <span id="kotak"></span></div>
+<div class="mini">💳 <span id="cc"></span></div>
+<div class="mini">📈 <span id="netWorth"></span></div>
+</div>
 
-<div class="grid">
-<div class="card"><h3>RBL</h3><p id="rbl"></p></div>
-<div class="card"><h3>Kotak</h3><p id="kotak"></p></div>
-<div class="card"><h3>Credit Card</h3><p id="cc"></p></div>
-<div class="card"><h3>Reimbursement</h3><p id="reimb"></p></div>
+<div class="mini-grid">
+<div class="mini">🟢 <span id="safeSpend"></span></div>
+<div class="mini">💵 <span id="reimb"></span></div>
+<div class="mini">📅 <span id="dailyBudget"></span></div>
+<div class="mini">📆 <span id="weeklyBudget"></span></div>
+<div class="mini">💳 <span id="ccUtil"></span></div>
+<div class="mini">🔮 <span id="forecast"></span></div>
+</div>
+
+<div class="card">
+🎯 Goal
+<div class="bar"><div id="goalBar" class="fill"></div></div>
+<div id="goalText"></div>
 </div>
 
 <select id="type"><option>Expense</option><option>Income</option><option>Transfer</option></select>
 <select id="category"></select>
 <input id="amount" type="number" placeholder="Amount">
 <select id="account"><option>RBL</option><option>Kotak</option><option>Credit Card</option></select>
-<button onclick="addTx()">Add Transaction</button>
+<button onclick="addTx()">➕ Add</button>
 
-<select id="monthFilter"><option value="">All Months</option></select>
+<select id="monthFilter"><option value="">📅 All Months</option></select>
+
 <div id="list"></div>
-
 <script src="app.js"></script>
 </body></html>

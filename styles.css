@@ -1,5 +1,9 @@
-body{font-family:-apple-system;background:#111827;color:#fff;padding:15px}
-.card{background:#1f2937;padding:12px;border-radius:12px;margin:8px 0}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-input,select,button{width:100%;padding:12px;margin:5px 0;border-radius:10px}
-.tx{background:#1f2937;padding:10px;border-radius:10px;margin:8px 0}
+body{font-family:-apple-system;background:#111827;color:#fff;padding:12px;max-width:700px;margin:auto}
+.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.mini{background:#1f2937;padding:10px;border-radius:10px;font-size:14px}
+.card{background:#1f2937;padding:10px;border-radius:10px;margin:8px 0}
+input,select,button{width:100%;padding:10px;margin:4px 0;border-radius:8px;border:none}
+button{background:#2563eb;color:white}
+.bar{height:10px;background:#374151;border-radius:10px;overflow:hidden}
+.fill{height:100%;background:#10b981;width:0%}
+.tx{background:#1f2937;padding:8px;border-radius:8px;margin:6px 0;font-size:14px}

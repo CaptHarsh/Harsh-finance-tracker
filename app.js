@@ -1,6 +1,6 @@
-const KEY='finance_v3plus';
-const EXP=['Food','Petrol','Shopping','Travel','Bills'];
-const INC=['Salary','Cashback','Reimbursement','Refund','Interest'];
+const KEY='compact_final';
+const EXP=['🍔 Food','⛽ Petrol','🛍 Shopping','🚕 Travel','🧾 Bills'];
+const INC=['💰 Salary','💵 Cashback','💵 Reimbursement','↩️ Refund','🏦 Interest'];
 const TRANS=['RBL → Kotak','Kotak → RBL'];
 let editId=null;
 
@@ -10,53 +10,57 @@ function save(){localStorage.setItem(KEY,JSON.stringify(s));}
 function cats(){let a=EXP;if(type.value==='Income')a=INC;if(type.value==='Transfer')a=TRANS;category.innerHTML=a.map(x=>`<option>${x}</option>`).join('');}
 type.onchange=cats;cats();
 
-function populateMonths(){const m=[...new Set(s.tx.map(x=>x.month))];monthFilter.innerHTML='<option value="">All Months</option>'+m.map(x=>`<option>${x}</option>`).join('');}
+function months(){const m=[...new Set(s.tx.map(x=>x.month))];monthFilter.innerHTML='<option value="">📅 All Months</option>'+m.map(x=>`<option>${x}</option>`).join('');}
 
 function addTx(){
 let a=parseFloat(amount.value); if(!a)return;
-const now=new Date();
-let tx={id:editId||Date.now(),type:type.value,cat:category.value,acc:account.value,amt:a,date:now.toLocaleString(),month:now.toISOString().slice(0,7)};
-if(editId){deleteCore(editId,false); editId=null;}
+if(editId){delCore(editId,false);}
+const d=new Date();
+const t={id:editId||Date.now(),type:type.value,cat:category.value,acc:account.value,amt:a,date:d.toLocaleString(),month:d.toISOString().slice(0,7)};
+editId=null;
 
-if(tx.type==='Expense'){if(tx.acc==='RBL')s.rbl-=a; else if(tx.acc==='Kotak')s.kotak-=a; else s.cc+=a;}
-else if(tx.type==='Income'){if(tx.acc==='RBL')s.rbl+=a; else if(tx.acc==='Kotak')s.kotak+=a; else s.cc-=a;}
-else {if(tx.cat==='RBL → Kotak'){s.rbl-=a;s.kotak+=a;} else {s.kotak-=a;s.rbl+=a;}}
+if(t.type==='Expense'){if(t.acc==='RBL')s.rbl-=a;else if(t.acc==='Kotak')s.kotak-=a;else s.cc+=a;}
+else if(t.type==='Income'){if(t.acc==='RBL')s.rbl+=a;else if(t.acc==='Kotak')s.kotak+=a;else s.cc-=a;if(t.cat.includes('Reimbursement'))s.reimb=Math.max(0,s.reimb-a);}
+else{if(t.cat==='RBL → Kotak'){s.rbl-=a;s.kotak+=a;}else{s.kotak-=a;s.rbl+=a;}}
 
-s.tx.unshift(tx); save(); render(); amount.value='';
+s.tx.unshift(t);save();render();amount.value='';
 }
 
-function deleteCore(id,rer=true){
+function delCore(id,r=true){
 const t=s.tx.find(x=>x.id===id); if(!t)return;
-if(t.type==='Expense'){if(t.acc==='RBL')s.rbl+=t.amt; else if(t.acc==='Kotak')s.kotak+=t.amt; else s.cc-=t.amt;}
-else if(t.type==='Income'){if(t.acc==='RBL')s.rbl-=t.amt; else if(t.acc==='Kotak')s.kotak-=t.amt; else s.cc+=t.amt;}
-else {if(t.cat==='RBL → Kotak'){s.rbl+=t.amt;s.kotak-=t.amt;} else {s.kotak+=t.amt;s.rbl-=t.amt;}}
-s.tx=s.tx.filter(x=>x.id!==id); save(); if(rer)render();
+if(t.type==='Expense'){if(t.acc==='RBL')s.rbl+=t.amt;else if(t.acc==='Kotak')s.kotak+=t.amt;else s.cc-=t.amt;}
+else if(t.type==='Income'){if(t.acc==='RBL')s.rbl-=t.amt;else if(t.acc==='Kotak')s.kotak-=t.amt;else s.cc+=t.amt;}
+else{if(t.cat==='RBL → Kotak'){s.rbl+=t.amt;s.kotak-=t.amt;}else{s.kotak+=t.amt;s.rbl-=t.amt;}}
+s.tx=s.tx.filter(x=>x.id!==id);save();if(r)render();
 }
-function delTx(id){deleteCore(id,true);}
-function editTx(id){const t=s.tx.find(x=>x.id===id); if(!t)return; type.value=t.type; cats(); category.value=t.cat; account.value=t.acc; amount.value=t.amt; editId=id;}
+function delTx(id){delCore(id,true);}
+function editTx(id){const t=s.tx.find(x=>x.id===id);type.value=t.type;cats();category.value=t.cat;account.value=t.acc;amount.value=t.amt;editId=id;}
 
 function render(){
-populateMonths();
+months();
 const nw=s.rbl+s.kotak-s.cc;
 const safe=Math.max(0,(s.rbl+s.kotak)-s.cc-s.goal);
-const daysLeft=Math.max(1,new Date(new Date().getFullYear(),new Date().getMonth()+1,0).getDate()-new Date().getDate()+1);
-const daily=Math.round(safe/daysLeft);
-const weekly=daily*7;
-const util=((s.cc/s.ccLimit)*100).toFixed(1)+'%';
+const days=Math.max(1,new Date(new Date().getFullYear(),new Date().getMonth()+1,0).getDate()-new Date().getDate()+1);
 
-rbl.innerText='₹'+s.rbl.toFixed(0);
-kotak.innerText='₹'+s.kotak.toFixed(0);
-cc.innerText='₹'+s.cc.toFixed(0);
-reimb.innerText='₹'+s.reimb.toFixed(0);
-netWorth.innerText='₹'+nw.toFixed(0);
-safeSpend.innerText='₹'+safe.toFixed(0);
-dailyBudget.innerText='₹'+daily;
-weeklyBudget.innerText='₹'+weekly;
-ccUtil.innerText=util;
-forecast.innerText='₹'+Math.round(nw + s.reimb);
+rbl.textContent='₹'+Math.round(s.rbl);
+kotak.textContent='₹'+Math.round(s.kotak);
+cc.textContent='₹'+Math.round(s.cc);
+netWorth.textContent='₹'+Math.round(nw);
+safeSpend.textContent='₹'+Math.round(safe);
+reimb.textContent='₹'+Math.round(s.reimb);
+dailyBudget.textContent='₹'+Math.round(safe/days);
+weeklyBudget.textContent='₹'+Math.round((safe/days)*7);
+ccUtil.textContent=((s.cc/s.ccLimit)*100).toFixed(1)+'%';
+forecast.textContent='₹'+Math.round(nw+s.reimb);
 
-let txs=s.tx; if(monthFilter.value) txs=txs.filter(x=>x.month===monthFilter.value);
-list.innerHTML=txs.map(t=>`<div class="tx"><b>${t.cat}</b> ₹${t.amt}<br>${t.date}<br><button onclick="editTx(${t.id})">Edit</button> <button onclick="delTx(${t.id})">Delete</button></div>`).join('');
+let p=Math.min(100,(nw/s.goal)*100);
+goalBar.style.width=p+'%';
+goalText.textContent=Math.round(p)+'%';
+
+let tx=s.tx;
+if(monthFilter.value) tx=tx.filter(x=>x.month===monthFilter.value);
+
+list.innerHTML=tx.map(t=>`<div class="tx">${t.cat} ₹${t.amt}<br>${t.date}<br><button onclick="editTx(${t.id})">✏️</button> <button onclick="delTx(${t.id})">🗑️</button></div>`).join('');
 }
 monthFilter.onchange=render;
 render();

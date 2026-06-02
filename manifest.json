@@ -1,10 +1,1 @@
-{
-  "name": "Harsh Finance Tracker",
-  "short_name": "Finance",
-  "description": "Personal Finance Tracker",
-  "display": "standalone",
-  "start_url": "./",
-  "background_color": "#0f172a",
-  "theme_color": "#2563eb",
-  "orientation": "portrait"
-}
+{"name":"Harsh Finance","short_name":"Finance","display":"standalone","start_url":"./"}
