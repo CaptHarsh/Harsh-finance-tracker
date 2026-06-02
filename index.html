@@ -1,37 +1,42 @@
 <!DOCTYPE html><html><head>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Harsh Finance</title>
+<title>💰 Harsh Finance</title>
 <link rel="stylesheet" href="styles.css">
 </head><body>
-<h2>💰 Harsh Finance</h2>
+<h1>💰 Harsh Finance</h1>
 
-<div class="mini-grid">
-<div class="mini">💰 <span id="rbl"></span></div>
-<div class="mini">🏦 <span id="kotak"></span></div>
-<div class="mini">💳 <span id="cc"></span></div>
-<div class="mini">📈 <span id="netWorth"></span></div>
+<div class="grid">
+<div class="mini">💰 RBL<br><b id="rbl"></b></div>
+<div class="mini">🏦 Kotak<br><b id="kotak"></b></div>
+<div class="mini">💳 Card<br><b id="cc"></b></div>
+<div class="mini">📈 Net Worth<br><b id="net"></b></div>
+
+<div class="mini">🟢 Safe Today<br><b id="safe"></b></div>
+<div class="mini">📅 Daily<br><b id="daily"></b></div>
+<div class="mini">📆 Weekly<br><b id="weekly"></b></div>
+<div class="mini">💵 Reimb.<br><b id="reimb"></b></div>
+
+<div class="mini">💳 Usage<br><b id="util"></b></div>
+<div class="mini">🔮 Forecast<br><b id="forecast"></b></div>
+<div class="mini">📅 Month<br><b id="monthName"></b></div>
+<div class="mini">🎯 Goal<br><b id="goalPct"></b></div>
 </div>
 
-<div class="mini-grid">
-<div class="mini">🟢 <span id="safeSpend"></span></div>
-<div class="mini">💵 <span id="reimb"></span></div>
-<div class="mini">📅 <span id="dailyBudget"></span></div>
-<div class="mini">📆 <span id="weeklyBudget"></span></div>
-<div class="mini">💳 <span id="ccUtil"></span></div>
-<div class="mini">🔮 <span id="forecast"></span></div>
-</div>
+<div class="goalwrap"><div id="goalBar"></div></div>
 
-<div class="card">
-🎯 Goal
-<div class="bar"><div id="goalBar" class="fill"></div></div>
-<div id="goalText"></div>
+<div class="quick">
+<button onclick="quick('🍔 Food')">🍔</button>
+<button onclick="quick('⛽ Petrol')">⛽</button>
+<button onclick="quick('🛍 Shopping')">🛍</button>
+<button onclick="quick('🚕 Travel')">🚕</button>
+<button onclick="type.value='Income';cats()">💰</button>
 </div>
 
 <select id="type"><option>Expense</option><option>Income</option><option>Transfer</option></select>
 <select id="category"></select>
 <input id="amount" type="number" placeholder="Amount">
 <select id="account"><option>RBL</option><option>Kotak</option><option>Credit Card</option></select>
-<button onclick="addTx()">➕ Add</button>
+<button onclick="addTx()">➕ Add Transaction</button>
 
 <select id="monthFilter"><option value="">📅 All Months</option></select>
 

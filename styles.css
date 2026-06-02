@@ -1,9 +1,12 @@
-body{font-family:-apple-system;background:#111827;color:#fff;padding:12px;max-width:700px;margin:auto}
-.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
-.mini{background:#1f2937;padding:10px;border-radius:10px;font-size:14px}
-.card{background:#1f2937;padding:10px;border-radius:10px;margin:8px 0}
-input,select,button{width:100%;padding:10px;margin:4px 0;border-radius:8px;border:none}
+body{font-family:-apple-system;background:#081225;color:#fff;padding:12px;max-width:700px;margin:auto}
+h1{font-size:32px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mini{background:#16233b;padding:10px;border-radius:12px;font-size:13px}
+.mini b{font-size:18px}
+.goalwrap{height:10px;background:#23324f;border-radius:20px;overflow:hidden;margin:10px 0}
+#goalBar{height:100%;width:0%;background:#22c55e}
+.quick{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:10px 0}
+button,input,select{width:100%;padding:10px;border:none;border-radius:10px;margin:4px 0}
 button{background:#2563eb;color:white}
-.bar{height:10px;background:#374151;border-radius:10px;overflow:hidden}
-.fill{height:100%;background:#10b981;width:0%}
-.tx{background:#1f2937;padding:8px;border-radius:8px;margin:6px 0;font-size:14px}
+.tx{background:#16233b;padding:10px;border-radius:10px;margin:6px 0;font-size:14px}
+.smallbtn{width:auto;padding:4px 8px;margin-top:5px}
