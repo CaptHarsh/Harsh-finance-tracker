@@ -1,6 +1,8 @@
-body{font-family:-apple-system;background:#0b1220;color:#fff;padding:12px}
+body{font-family:-apple-system;background:#111827;color:#fff;margin:0;padding:15px;padding-bottom:70px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.mini{background:#172338;padding:12px;border-radius:12px}
-.mini b{font-size:22px}
-.goalwrap{height:12px;background:#2d3d5a;border-radius:20px;overflow:hidden;margin-top:10px}
-#goalBar{height:100%;width:81%;background:#22c55e}
+.card{background:#1f2937;padding:12px;border-radius:16px}
+.page{display:none}.active{display:block}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:#000}
+nav button{flex:1;padding:15px}
+input,select,button{width:100%;padding:12px;margin:5px 0;border-radius:10px;border:none}
+.tx{background:#1f2937;padding:10px;border-radius:12px;margin:8px 0}

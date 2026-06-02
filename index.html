@@ -1,24 +1,47 @@
 <!DOCTYPE html>
 <html><head>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Harsh Finance Fix</title>
+<title>Harsh Finance V5</title>
+<link rel="manifest" href="manifest.json">
 <link rel="stylesheet" href="styles.css">
-</head><body>
-<h1>💰 Harsh Finance</h1>
-
+</head>
+<body>
+<div id="dashboard" class="page active">
+<h1>💰 Finance Dashboard</h1>
 <div class="grid">
-<div class="mini">💰 RBL<br><b>₹33,659</b></div>
-<div class="mini">🏦 Kotak<br><b>₹25,000</b></div>
-<div class="mini">💳 Credit Card<br><b>₹15,374</b></div>
-<div class="mini">💵 Reimbursement<br><b>₹8,800</b></div>
-
-<div class="mini">📈 Net Worth<br><b>₹43,285</b></div>
-<div class="mini">💳 Usage<br><b>61.5%</b></div>
-<div class="mini">🟢 Safe Today<br><b>₹33,585</b></div>
-<div class="mini">📆 Weekly Budget<br><b>₹8,000</b></div>
+<div class="card"><h3>RBL</h3><div id="rbl"></div></div>
+<div class="card"><h3>Kotak</h3><div id="kotak"></div></div>
+<div class="card"><h3>Credit Card</h3><div id="cc"></div></div>
+<div class="card"><h3>Net Worth</h3><div id="net"></div></div>
+<div class="card"><h3>Safe To Spend</h3><div id="safe"></div></div>
+<div class="card"><h3>Savings Goal</h3><div id="goal"></div></div>
+<div class="card"><h3>Daily Budget</h3><div id="daily"></div></div>
+<div class="card"><h3>Weekly Budget</h3><div id="weekly"></div></div>
+</div>
 </div>
 
-<div class="goalwrap"><div id="goalBar"></div></div>
-<p>🎯 Goal: ₹43,285 / ₹53,285</p>
+<div id="transactions" class="page">
+<h2>Transactions</h2>
+<select id="monthFilter"></select>
+<input id="amount" type="number" placeholder="Amount">
+<select id="type"><option>Expense</option><option>Income</option></select>
+<select id="account"><option>RBL</option><option>Kotak</option><option>Credit Card</option></select>
+<select id="category"></select>
+<button onclick="addTx()">Add</button>
+<div id="txList"></div>
+</div>
 
+<div id="settings" class="page">
+<h2>Settings</h2>
+<input id="salary" placeholder="Salary" value="60316">
+<input id="savingGoal" placeholder="Savings Goal" value="10000">
+<input id="reimb" placeholder="Reimbursement" value="8800">
+</div>
+
+<nav>
+<button onclick="showPage('dashboard')">🏠</button>
+<button onclick="showPage('transactions')">💸</button>
+<button onclick="showPage('settings')">⚙️</button>
+</nav>
+<script src="app.js"></script>
 </body></html>
