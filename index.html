@@ -1,38 +1,24 @@
-<!DOCTYPE html><html><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Harsh Finance Tracker</title>
-<link rel="manifest" href="manifest.json">
+<!DOCTYPE html>
+<html><head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Harsh Finance Fix</title>
 <link rel="stylesheet" href="styles.css">
 </head><body>
-<h1>💰 Harsh Finance Tracker</h1>
+<h1>💰 Harsh Finance</h1>
 
 <div class="grid">
-<div class="card"><h3>💰 RBL</h3><div id="rbl"></div></div>
-<div class="card"><h3>🏦 Kotak</h3><div id="kotak"></div></div>
-<div class="card"><h3>💳 Credit Card</h3><div id="cc"></div></div>
-<div class="card"><h3>📈 Net Worth</h3><div id="net"></div></div>
-<div class="card"><h3>🟢 Safe To Spend</h3><div id="safe"></div></div>
-<div class="card"><h3>💵 Reimbursement</h3><div id="reimb"></div></div>
+<div class="mini">💰 RBL<br><b>₹33,659</b></div>
+<div class="mini">🏦 Kotak<br><b>₹25,000</b></div>
+<div class="mini">💳 Credit Card<br><b>₹15,374</b></div>
+<div class="mini">💵 Reimbursement<br><b>₹8,800</b></div>
+
+<div class="mini">📈 Net Worth<br><b>₹43,285</b></div>
+<div class="mini">💳 Usage<br><b>61.5%</b></div>
+<div class="mini">🟢 Safe Today<br><b>₹33,585</b></div>
+<div class="mini">📆 Weekly Budget<br><b>₹8,000</b></div>
 </div>
 
-<select id="monthFilter"></select>
+<div class="goalwrap"><div id="goalBar"></div></div>
+<p>🎯 Goal: ₹43,285 / ₹53,285</p>
 
-<div class="quick">
-<button onclick="quick('Food')">🍔 Food</button>
-<button onclick="quick('Petrol')">⛽ Petrol</button>
-<button onclick="quick('Shopping')">🛍 Shopping</button>
-<button onclick="quick('Travel')">🚕 Travel</button>
-</div>
-
-<div class="card">
-<select id="type"><option>Expense</option><option>Income</option></select>
-<select id="category"></select>
-<select id="account"><option>RBL</option><option>Kotak</option><option>Credit Card</option></select>
-<input id="amount" type="number" placeholder="Amount">
-<button onclick="addTx()">Save</button>
-</div>
-
-<div id="transactions"></div>
-
-<script src="app.js"></script>
 </body></html>
